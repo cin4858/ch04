@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>시인 북마크 리스트</title>
+</head>
+<body>
+    <div id = "content">
+        <h1>Si in -> Bookmark List</h1>
+        <h3>217230109_김시인</h3>
+        <hr style="border: solid 5px #D8BFD8;">
+        <ul>
+            {% for bookmark in object_list %}
+                <li>
+                    <a href="{% url 'detail' bookmark.id %}">
+                        {{ bookmark }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+
+    </div>
+</body>
+</html>
