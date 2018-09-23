@@ -33,42 +33,41 @@
     <div id = "content">
         <h1> Si in -> Bookmark List</h1>
         <h3>217230109_김시인</h3>
-        <!--<hr style="border: solid 5px #D8BFD8;">-->
         {% if request.path == "/bookmark_t_CBV/" %}
-            <p>{{request.path }} => views.BookmarkLV => bookmark_list.html</p>
-            <!--표 형식 스타일-->
-            <table id="tbl">
-                    <tr>
-                        <th>id</th>
-                        <th>title</th>
-                        <th>url</th>
-                    </tr>
-                    {% for bookmark in object_list %}
-                    <!-- 디폴트 컨텍스트 변수가 objecct_list-->
-                    <tr>
-                        <td>{{ bookmark.id }} </td>
-                        <td>{{ bookmark.title }}</td>
-                        <td>
-                            <a href="{% url 'detail' bookmark.id %}">
-                                {{ bookmark.url }}
-                            </a>
-                        </td>
-                    </tr>
+                <p>{{request.path }} => views.BookmarkLV => bookmark_list.html</p>
+                <!--표 형식 스타일-->
+                <table id="tbl">
+                        <tr>
+                            <th>id</th>
+                            <th>title</th>
+                            <th>url</th>
+                            </tr>
+                        {% for bookmark in object_list %}
+                        <!-- 디폴트 컨텍스트 변수가 objecct_list-->
+                            <tr>
+                            <td>{{ bookmark.id }} </td>
+                            <td>{{ bookmark.title }}</td>
+                            <td>
+                                <a href="{% url 'detail' bookmark.id %}">
+                                    {{ bookmark.url }}
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+            </table>
+        {% else %}
+         <p>{{ request.path }} => views.BookmarkLV => bookmark_list.html</p>
+            <!--원래 있던 것-->
+            <ul>
+                {% for bookmark in object_list %}
+                    <li>
+                        <a href="{% url 'detail' bookmark.id %}">
+                            {{ bookmark }}
+                        </a>
+                    </li>
                 {% endfor %}
-        </table>
-    {% else %}
-        <p>{{ request.path }} => views.BookmarkLV => bookmark_list.html</p>
-        <!--원래 있던 것-->
-        <ul>
-            {% for bookmark in object_list %}
-                <li>
-                    <a href="{% url 'detail' bookmark.id %}">
-                        {{ bookmark }}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-    { % endif %}
+            </ul>
+            {% endif %}
     </div>
 </body>
 </html>
