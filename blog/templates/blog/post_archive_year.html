@@ -1,0 +1,32 @@
+<h1>{{ year|date:"Y" }}년 게시글 모음</h1>
+
+<ul>
+    <!--date_list 컨텍스트 변수는 DateQuerySet 객체 리스트를 담고 있으며, -->
+    <!--여기에는 QuerySet에서 날짜 정보만을 추출해서 datetime.date 유형의 객체로 저장함 -->
+    {% for date in date_list %}
+    <li style="display: inline">
+        <!--'blog:post_month_archive' url에 링크 연결하되, 2015(년) 및 7(월) 형식으로 매개변수를 전달-->
+        <a href="{% url 'blog:post_month_archive' year|date:'Y' date|date:'b' %}">
+            <!--월 제목을 "F" 형태(예: July)로 출력 -->
+            {{ date|date:"F" }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+<br/>
+
+게시글 리스트 출력 부분은 post_archive.html과 동일한 방식
+<div>
+    <ul>
+        <!--기본 컨텍스트 변수로 object_list 및 lates 모두 가능함-->
+        <!--latest는 ArchiveIndexView에서만 정의된 변수이므로 여기서는 사용 불가-->
+        {% for post in object_list %}
+        <li>
+            {{ post.modify_date|date:"Y-m-d" }}&nbsp;&nbsp;&nbsp
+            <a href="{{ post.get_absolute_url }}">
+                <strong>{{ post.title }}</strong>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>

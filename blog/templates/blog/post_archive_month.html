@@ -1,0 +1,14 @@
+<h1>{{ month|date:"Y년 m월" }} 게시글 모음</h1>
+
+<div>
+    <ul>
+        {% for post in object_list %}
+        <li>
+            {{ post.modify_date|date:"Y-m-d" }}&nbsp;&nbsp;&nbsp;
+            <a href="{{ post.get_absolute_url }}">
+                <strong>{{ post.title }}</strong>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>

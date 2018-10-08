@@ -1,0 +1,44 @@
+<!--특별한 HTML 태그 지정이 없으면 장고가 <body> </body> 영역으로 간주함-->
+<h1>Blog List</h1>
+
+<!--blog.views.PostLV.context_object_name='posts'라고
+기본값 object_list 대신 정의했지만, object_list 역시 사용 가능함-->
+{% for post in posts %}
+    <h2>
+        <!--href='blog/post/django-example/'과 같은 슬러그 형태로 링크 처리하되,
+        {{ blog.models.Post.get_absolute_url() 함수 }} 또는
+        {% url url_name pk %}}로 링크 처리-->
+        <a href='{{ post.get_absolute_url }}'>
+        <!--위 a 요소와 아래 a 요소는 동일한 코드이지만,
+        위는 url 패턴을 간접 태그 인자로 사용하지만,
+        아래는 url 패턴을 직접 태그 인자로 사용함 -->
+        <!--<a href="{% url 'blog:post_detail' post.slug %}}">-->
+            {{ post.title }}
+        </a>
+    </h2>
+    <!--post.modify_date를 date:"N d, Y" 형식으로 출력 (예: July 05, 2015) cf. http://oddly.tistory.com/64-->
+    {{ post.modify_date|date:"N d, Y" }}
+    <p>{{ post.description }}</p>
+{% endfor %}
+
+<br/>
+
+<!--이전/현재/다음 페이지 이동 -->
+<div> <!--div 요소는 블록 요소-->
+    <span>  <!--span 요소는 인라인 요소-->
+        <!--page_obj는 장고 Page 객체가 들어있는 컨텍스트 변수이며
+        has_previous, has_next, previous_page_number, next_page_number,
+        number, pagenator.num_pages 속성을 가짐-->
+        {% if page_obj.has_previous %}
+            <!--링크 형식 href="?page={{ page_obj.previous_page_number }}"에 주목-->
+            <a href="?page={{ page_obj.previous_page_number }}">이전 페이지</a>
+        {% endif %}
+
+        페이지 {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+
+        {% if page_obj.has_next %}
+            <!--링크 형식 href="?page={{ page_obj.previous_page_number }}"에 주목-->
+            <a href="?page={{ page_obj.next_page_number }}">다음 페이지</a>
+        {% endif %}
+    </span>
+</div>

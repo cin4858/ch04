@@ -1,0 +1,29 @@
+<!--{% now %} 템플릿 태그는 현재 일시를 "N d, Y" 형식(July 18, 2015)으로 출력  -->
+<h1>{% now "N d, Y" %}까지의 게시글 모음</h1>
+<ul>
+    <!--date_list 컨텍스트 변수는 DateQuerySet 객체 리스트를 담고 있으며, 여기에는-->
+    <!--QuerySet에서 날짜 정보만을 추출해서 datetime.date 유형의 객체로 저장함 -->
+    {% for date in date_list %}
+        <!--연도 리스트를 inline 방식으로 출력-->
+        <li style="display: inline;">
+            <a href="{% url 'blog:post_year_archive' date|date:'Y' %}">
+                {{ date|date:"Y" }} 년
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+<br/>
+<div>
+    <ul>
+        <!--기본 컨텍스트 변수로 object_list 및 lates 모두 가능함-->
+        {% for post in object_list %}
+            <li>
+                순서 없는 리스트로 게시글 수정일과 제목을 공백 3개로 구분하여 출력
+                {{ post.modify_date|date:"Y-m-d" }}&nbsp;&nbsp;&nbsp;
+                <a href="{{ post.get_absolute_url }}">
+                    <strong>{{ post.title }}</strong>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
