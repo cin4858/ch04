@@ -6,7 +6,8 @@
     {% for date in date_list %}
     <li style="display: inline">
         <!--'blog:post_month_archive' url에 링크 연결하되, 2015(년) 및 7(월) 형식으로 매개변수를 전달-->
-        <a href="{% url 'blog:post_month_archive' year|date:'Y' date|date:'b' %}">
+        <!--<a href="{% url 'blog:post_month_archive' year|date:'Y' date|date:'b' %}">-->
+        <a href="{ url 'blog:post_year_archive' year|date:'Y'} ">
             <!--월 제목을 "F" 형태(예: July)로 출력 -->
             {{ date|date:"F" }}
         </a>
